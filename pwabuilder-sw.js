@@ -122,6 +122,11 @@ self.addEventListener('install', e => {
       ...assetspdf.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.pdf'),
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/pwabuilder-sw.js',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/manifest.json',
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/152.png',
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/144.png',
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/64.png',
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/32.png',
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/android-launchericon-512-512.png'
       ];
 
     console.log('ServiceWorker: Caching files:', c.length, c);
@@ -200,7 +205,7 @@ self.addEventListener("fetch", event => {
       // or whatever your app's URL is
       event.respondWith(
           fetch(event.request).catch(err =>
-              self.cache.open(cache_name).then(cache => cache.match(offlineFallbackPage))
+              self.cache.open(CACHE).then(cache => cache.match(offlineFallbackPage))
           )
       );
   } else {
