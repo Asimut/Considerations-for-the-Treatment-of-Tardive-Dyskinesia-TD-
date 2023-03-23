@@ -1,0 +1,17 @@
+{
+    "background_color": "#ffffff",
+    "description": "",
+    "dir": "ltr",
+    "display": "standalone",
+    "name": "Considerations for the Treatment of Tardive Dyskinesia (TD)",
+    "orientation": "any", 
+    "short_name": "Considerations for the Treatment of TD",
+    "start_url": "https://asimut.github.io/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/",
+    "theme_color": "#ffffff",
+    "categories": [
+      "education"
+    ],
+    "shortcuts": [],
+    "lang": "en",
+    "display_override": []
+  }
