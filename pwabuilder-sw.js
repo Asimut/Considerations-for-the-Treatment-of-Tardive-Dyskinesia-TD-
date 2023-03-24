@@ -270,14 +270,7 @@ self.addEventListener('install', function(event) {
       return cache.addAll(urlsToPrefetch);      
     }).then(() => {
       console.log('All files were successfully cached.');
-      self.clients.matchAll({type: 'window'}).then(clients => {
-        console.log(clients);
-        clients.forEach(client => {
-          client.postMessage({
-            type: 'prompt-install'
-          });
-        });
-      });
+      self.skipWaiting();
     })
   );
 
@@ -306,6 +299,15 @@ self.addEventListener('activate', function(event) {
         );
     })
     );
+
+    self.clients.matchAll({type: 'window'}).then(clients => {
+      console.log(clients);
+      clients.forEach(client => {
+        client.postMessage({
+          type: 'prompt-install'
+        });
+      });
+    });
 });
 
 self.addEventListener('fetch', function(event) {
@@ -379,6 +381,6 @@ self.addEventListener('message', event => {
   if (event.data && event.data.type === 'install-pwa') {
     // код установки PWA
     console.log('Message Event');
-    self.skipWaiting();
+    
   }
 });
