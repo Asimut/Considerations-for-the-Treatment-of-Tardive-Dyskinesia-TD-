@@ -289,21 +289,7 @@ self.addEventListener('activate', function(event) {
   var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
     return CURRENT_CACHES[key];
   });
-
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-
-    deferredPrompt.userChoice.then(function(choiceResult){
-      if(choiceResult.outcome === "accepted"){
-        console.log('Your PWA has been installed.');
-      } else {
-        console.log('User chose to not install ypur PWA.')
-      }
-
-      deferredPrompt = null;
-    });
-  }
-
+  
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
