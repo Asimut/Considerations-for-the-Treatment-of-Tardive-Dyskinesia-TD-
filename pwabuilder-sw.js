@@ -264,7 +264,7 @@ self.addEventListener('install', function(event) {
   console.log('Handling install event. Resources to prefetch:', urlsToPrefetch);
 
   // self.skipWaiting();
-  
+
   event.waitUntil(
     caches.open(CURRENT_CACHES.prefetch).then(async (cache) => {
       return cache.addAll(urlsToPrefetch);      
@@ -274,7 +274,7 @@ self.addEventListener('install', function(event) {
 
       console.log(self);
 
-      self.dispatchEvent(new Event('beforeinstallprompt'));
+      // self.dispatchEvent(new Event('beforeinstallprompt'));
     })
   );
 
