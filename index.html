@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-
-    <title>Considerations for the Treatment of Tardive Dyskinesia (TD)</title>
-
-    <link type="text/css" rel="stylesheet" href="lib/icomoon.css">
-    <link type="text/css" rel="stylesheet" href="lib/main.bundle.css">
-    <script type="text/javascript" src="lib/player-0.0.11.min.js"></script>
-    <script type="text/javascript" src="lib/lzwcompress.js"></script>
-
-    <link rel="stylesheet" href="assets/custom/style.css">
-
-    <!-- Resize Hack -->
-    <script type="text/javascript">
-      window.resizeTo(screen.width, screen.height);
-    </script>
-    
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="152.png">
@@ -40,27 +19,6 @@
           })
         }
       }
-      if ('setAppBadge' in navigator) {
-        navigator.setAppBadge(1);
-      }      
-    </script>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.addEventListener('message', event => {
-          console.log(event);
-          if (event.data && event.data.type === 'prompt-install') {
-            const shouldInstall = confirm('Хотите установить приложение на ваше устройство?');
-            
-            if (shouldInstall) {
-              navigator.serviceWorker.controller.postMessage({
-                type: 'install-pwa'
-              });
-            }
-          }
-        });
-      }
-
 
       let deferredPrompt = null;
       window.addEventListener('beforeinstallprompt', function(event) {
@@ -82,6 +40,52 @@
           deferredPrompt = null;
         });
       }
+
+
+      // if ('setAppBadge' in navigator) {
+      //   navigator.setAppBadge(1);
+      // }      
+    </script>
+
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <title>Considerations for the Treatment of Tardive Dyskinesia (TD)</title>
+
+    <link type="text/css" rel="stylesheet" href="lib/icomoon.css">
+    <link type="text/css" rel="stylesheet" href="lib/main.bundle.css">
+    <script type="text/javascript" src="lib/player-0.0.11.min.js"></script>
+    <script type="text/javascript" src="lib/lzwcompress.js"></script>
+
+    <link rel="stylesheet" href="assets/custom/style.css">
+
+    <!-- Resize Hack -->
+    <script type="text/javascript">
+      window.resizeTo(screen.width, screen.height);
+    </script>
+    
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->    
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', event => {
+          console.log(event);
+          if (event.data && event.data.type === 'prompt-install') {
+            const shouldInstall = confirm('Хотите установить приложение на ваше устройство?');
+            
+            if (shouldInstall) {
+              navigator.serviceWorker.controller.postMessage({
+                type: 'install-pwa'
+              });
+            }
+          }
+        });
+      }      
     </script>
 
     <script>
