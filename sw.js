@@ -1,10 +1,24 @@
-var CACHE_VERSION = 2;
-var CURRENT_CACHES = {
-  prefetch: 'prefetch-cache-v' + CACHE_VERSION
-};
+// This is the "Offline page" service worker
+// const CACHE = "pwabuilder-page";
+const CACHE = "pwabuilder-offline";
 
-self.addEventListener('install', function(event) {
-  let ok,
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');    
+
+
+// TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
+const offlineFallbackPage = "index.html";
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
+self.addEventListener('install', e => {
+  console.log('11111111111111111111');
+
+  e.waitUntil(caches.open(CACHE).then(async (cache) => {
+    let ok,
     libjs = ['player-0.0.11.min', 'main.bundle', 'lzwcompress'],
     libcss = ['main.bundle', 'icomoon'],
     libfonts = ['icomoon', 'Lato-Black', 'Lato-Bold', 'Lato-Italic', 'Lato-Light', 'Lato-Regular'],
@@ -85,9 +99,9 @@ self.addEventListener('install', function(event) {
         ],
     assetspdf = ['BIoFEreEvYJtO676_LUi5YO0ctCiLxyfK-Full Prescribing Information',
         'x86UqhHAQp0mvO-l_pSQRJWXMj0UNOWMg-INGREZZA-Full-Prescribing-Information',
-        ];
-  var urlsToPrefetch = [
-    '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/',
+        ],
+    c = [
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/index.html',
       ...libjs.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/lib/' + i + '.js'),
       ...libcss.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/lib/' + i + '.css'),
@@ -115,102 +129,123 @@ self.addEventListener('install', function(event) {
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/64.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/32.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/android-launchericon-512-512.png'
-  ];
+      ];
 
-  // All of these logging statements should be visible via the "Inspect" interface
-  // for the relevant SW accessed via chrome://serviceworker-internals
-  console.log('Handling install event. Resources to prefetch:', urlsToPrefetch);
-
-  self.skipWaiting();
-
-  event.waitUntil(
-    caches.open(CURRENT_CACHES.prefetch).then(function(cache) {
-      return cache.addAll(urlsToPrefetch);
-    })
-  );
-});
-
-self.addEventListener('activate', function(event) {
-  // Delete all caches that aren't named in CURRENT_CACHES.
-  // While there is only one cache in this example, the same logic will handle the case where
-  // there are multiple versioned caches.
-  var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
-    return CURRENT_CACHES[key];
-  });
-
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.map(function(cacheName) {
-          if (expectedCacheNames.indexOf(cacheName) === -1) {
-            // If this cache name isn't present in the array of "expected" cache names, then delete it.
-            console.log('Deleting out of date cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-        );
-    })
-    );
-});
-
-self.addEventListener('fetch', function(event) {
-  console.log('Handling fetch event for', event.request.url);
-
-  if (event.request.headers.get('range')) {
-    var pos =
-    Number(/^bytes\=(\d+)\-$/g.exec(event.request.headers.get('range'))[1]);
-    console.log('Range request for', event.request.url,
-      ', starting position:', pos);
-    event.respondWith(
-      caches.open(CURRENT_CACHES.prefetch)
-      .then(function(cache) {
-        return cache.match(event.request.url);
-      }).then(function(res) {
-        if (!res) {
-          return fetch(event.request)
-          .then(res => {
-            return res.arrayBuffer();
-          });
+    console.log('ServiceWorker: Caching files:', c.length, c);
+    
+    try {
+      ok = await cache.addAll(c);
+    } catch (err) {
+      console.error('sw: cache.addAll');
+      for await (let i of c) {
+        try {
+          ok = await cache.add(i);
+        } catch (err) {
+          console.warn('sw: cache.add',i);
         }
-        return res.arrayBuffer();
-      }).then(function(ab) {
-        return new Response(
-          ab.slice(pos),
-          {
-            status: 206,
-            statusText: 'Partial Content',
-            headers: [
-              // ['Content-Type', 'video/webm'],
-              ['Content-Range', 'bytes ' + pos + '-' +
-                (ab.byteLength - 1) + '/' + ab.byteLength]]
-          });
-      }));
-  } else {
-    console.log('Non-range request for', event.request.url);
-    event.respondWith(
-    // caches.match() will look for a cache entry in all of the caches available to the service worker.
-    // It's an alternative to first opening a specific named cache and then matching on that.
-    caches.match(event.request).then(function(response) {
-      if (response) {
-        console.log('Found response in cache:', response);
-        return response;
       }
-      console.log('No response found in cache. About to fetch from network...');
-      // event.request will always have the proper mode set ('cors, 'no-cors', etc.) so we don't
-      // have to hardcode 'no-cors' like we do when fetch()ing in the install handler.
-      return fetch(event.request).then(function(response) {
-        console.log('Response from network is:', response);
+    }
 
-        return response;
-      }).catch(function(error) {
-        // This catch() will handle exceptions thrown from the fetch() operation.
-        // Note that a HTTP error response (e.g. 404) will NOT trigger an exception.
-        // It will return a normal response object that has the appropriate error code set.
-        console.error('Fetching failed:', error);
+    return ok;
+  }));
 
-        throw error;
-      });
-    })
-    );
+  console.log('ServiceWorker installed');
+});
+
+
+
+if (workbox.navigationPreload.isSupported()) {
+  workbox.navigationPreload.enable();
+}
+
+workbox.routing.registerRoute(
+  new RegExp('/(.*)\.(?:png|gif|jpg|svg|mp4|pdf)(.*)/'),
+  new workbox.strategies.CacheFirst({
+      cacheName: CACHE,
+  })
+);
+
+workbox.routing.registerRoute(
+  new RegExp('/*'),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: CACHE
+  })
+);
+
+// self.addEventListener('fetch', (event) => {
+//   if (event.request.mode === 'navigate') {
+//     event.respondWith((async () => {
+//       try {
+//         const preloadResp = await event.preloadResponse;
+
+//         if (preloadResp) {
+//           return preloadResp;
+//         }
+
+//         const networkResp = await fetch(event.request);
+//         return networkResp;
+//       } catch (error) {
+
+//         const cache = await caches.open(CACHE);
+//         const cachedResp = await cache.match(offlineFallbackPage);
+//         return cachedResp;
+//       }
+//     })());
+//   }
+// });
+
+
+// self.addEventListener('install', async (event) => {
+//   event.waitUntil(
+//     caches.open(CACHE)
+//       .then((cache) => cache.add(offlineFallbackPage))
+//   );
+// });
+
+self.addEventListener("fetch", event => {
+  if (event.request.url === "https://asimut.github.io/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/") {
+      // or whatever your app's URL is
+      event.respondWith(
+          fetch(event.request).catch(err =>
+              self.cache.open(CACHE).then(cache => cache.match(offlineFallbackPage))
+          )
+      );
+  } else {
+      event.respondWith(
+          fetch(event.request).catch(err =>
+              caches.match(event.request).then(response => response)
+          )
+      );
   }
 });
+
+self.addEventListener('fetch', (event) => {
+  const {request} = event;
+  if (request.headers.has('range')) {
+    event.respondWith((async () => {
+      const cache = await caches.open('media');
+      const fullResponse = await cache.match(request);
+      if (fullResponse) {
+        return createPartialResponse(request, fullResponse);
+      }
+      // If there's a cache miss, fall back to the network.
+      return fetch(request);
+    })());
+  }
+});
+
+function fromCache(request){
+  return caches.open(CACHE).then(function(cache){
+    if(!matching || matching.status === 404){
+      return Promise.reject("no-match");
+    }
+
+    return matching;
+  })
+}
+
+function updareChache(request, response){
+  return caches.open(CACHE).then(function(cache){
+    return cache.put(request, response);
+  })
+}
