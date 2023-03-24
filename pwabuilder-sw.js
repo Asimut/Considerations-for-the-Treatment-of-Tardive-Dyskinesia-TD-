@@ -1,4 +1,4 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'); 
+// importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'); 
 
 var CACHE_VERSION = 2;
 var CURRENT_CACHES = {
@@ -133,7 +133,14 @@ self.addEventListener('install', function(event) {
 
   console.log('ServiceWorker installed');
 
-  installPrompt();
+  if (typeof window !== 'undefined') {
+    console.log('You are on the browser,You are good to go')
+    installPrompt();
+    } else {
+    console.log('You are on the server,Cannot execute')
+   }
+
+  
 });
 
 async function installPrompt() {  
