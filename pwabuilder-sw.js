@@ -243,7 +243,7 @@ self.addEventListener('install', function(event) {
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/ingrezza-valbenazine-logo-n.svg',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/logo-modal.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/open-book.svg',
-      ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4?v=1'),
+      // ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4?v=1'),
       // ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
       // ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
       // ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
@@ -261,11 +261,17 @@ self.addEventListener('install', function(event) {
   // for the relevant SW accessed via chrome://serviceworker-internals
   console.log('Handling install event. Resources to prefetch:', urlsToPrefetch);
 
-  self.skipWaiting();
+  // self.skipWaiting();
 
   event.waitUntil(
     caches.open(CURRENT_CACHES.prefetch).then(async (cache) => {
       return cache.addAll(urlsToPrefetch);      
+    }).then(() => {
+      console.log('All files were successfully cached.');
+      if (confirm('Do you want to install the PWA?')) {
+        // код установки PWA
+        self.skipWaiting();
+      }
     })
   );
 
@@ -377,4 +383,8 @@ self.addEventListener('fetch', function(event) {
     })
     );
   }
+});
+
+self.addEventListener('beforeinstallprompt', event => {
+  console.log('PROMPT1111111')
 });
