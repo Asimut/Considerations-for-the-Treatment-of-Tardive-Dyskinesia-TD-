@@ -1,3 +1,5 @@
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'); 
+
 var CACHE_VERSION = 2;
 var CURRENT_CACHES = {
   prefetch: 'prefetch-cache-v' + CACHE_VERSION
@@ -125,9 +127,11 @@ self.addEventListener('install', function(event) {
 
   event.waitUntil(
     caches.open(CURRENT_CACHES.prefetch).then(function(cache) {
-      return cache.addAll(urlsToPrefetch);
+      return cache.addAll(urlsToPrefetch);      
     })
   );
+
+  console.log('ServiceWorker installed');
 });
 
 self.addEventListener('activate', function(event) {
@@ -137,6 +141,8 @@ self.addEventListener('activate', function(event) {
   var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
     return CURRENT_CACHES[key];
   });
+
+  console.log(expectedCacheNames);
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
