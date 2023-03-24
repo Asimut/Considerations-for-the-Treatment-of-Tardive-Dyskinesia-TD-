@@ -290,13 +290,6 @@ self.addEventListener('activate', function(event) {
     return CURRENT_CACHES[key];
   });
 
-  console.log(expectedCacheNames);
-  let deferredPrompt = null;
-  window.addEventListener('beforeinstallprompt', function(event) {
-    event.preventDefault();
-    deferredPrompt = event;
-  });
-
   if(deferredPrompt){
     deferredPrompt.prompt();
 
