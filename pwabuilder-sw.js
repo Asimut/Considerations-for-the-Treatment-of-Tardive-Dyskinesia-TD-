@@ -289,7 +289,7 @@ self.addEventListener('activate', function(event) {
   var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
     return CURRENT_CACHES[key];
   });
-  
+
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
@@ -374,6 +374,7 @@ self.addEventListener('beforeinstallprompt', event => {
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'install-pwa') {
     // код установки PWA
+    console.log('Message Event');
     self.skipWaiting();
   }
 });
