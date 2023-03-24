@@ -25,21 +25,23 @@
         console.log(event);
         event.preventDefault();
         deferredPrompt = event;
+
+        if(deferredPrompt){
+          deferredPrompt.prompt();
+
+          deferredPrompt.userChoice.then(function(choiceResult){
+            if(choiceResult.outcome === "accepted"){
+              console.log('Your PWA has been installed.');
+            } else {
+              console.log('User chose to not install ypur PWA.')
+            }
+
+            deferredPrompt = null;
+          });
+        }
       });
 
-      if(deferredPrompt){
-        deferredPrompt.prompt();
-
-        deferredPrompt.userChoice.then(function(choiceResult){
-          if(choiceResult.outcome === "accepted"){
-            console.log('Your PWA has been installed.');
-          } else {
-            console.log('User chose to not install ypur PWA.')
-          }
-
-          deferredPrompt = null;
-        });
-      }
+      
 
 
       // if ('setAppBadge' in navigator) {
