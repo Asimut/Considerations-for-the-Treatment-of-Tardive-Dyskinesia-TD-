@@ -1,4 +1,4 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'); 
+// importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'); 
 
 var CACHE_VERSION = 2;
 var CURRENT_CACHES = {
@@ -106,12 +106,12 @@ self.addEventListener('install', function(event) {
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/logo-modal.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/open-book.svg',
       ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4?v=1'),
-      ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
-      ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
-      ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
-      ...assetspdf.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.pdf'),
-      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/pwabuilder-sw.js',
-      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/manifest.json',
+      // ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
+      // ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
+      // ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
+      // ...assetspdf.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.pdf'),
+      // '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/pwabuilder-sw.js',
+      // '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/manifest.json',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/152.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/144.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/64.png',
