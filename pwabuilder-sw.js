@@ -105,7 +105,7 @@ self.addEventListener('install', function(event) {
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/ingrezza-valbenazine-logo-n.svg',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/logo-modal.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/open-book.svg',
-      ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4'),
+      ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4?v=1'),
       ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
       ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
       ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
