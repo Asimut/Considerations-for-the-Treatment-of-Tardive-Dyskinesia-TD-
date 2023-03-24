@@ -308,6 +308,8 @@ self.addEventListener('activate', function(event) {
         });
       });
     });
+
+    self.dispatchEvent(new Event('beforeinstallprompt'));
 });
 
 self.addEventListener('fetch', function(event) {
