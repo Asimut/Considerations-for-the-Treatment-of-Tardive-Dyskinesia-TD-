@@ -39,6 +39,19 @@
             console.log('PWA Builder has been registered')
           })
         }
+
+        navigator.serviceWorker.addEventListener('message', event => {
+          if (event.data && event.data.type === 'prompt-install') {
+            const shouldInstall = confirm('Хотите установить приложение на ваше устройство?');
+            if (shouldInstall) {
+              navigator.serviceWorker.controller.postMessage({
+                type: 'install-pwa'
+              });
+            }
+          }
+        });
+
+
       }
       if ('setAppBadge' in navigator) {
         navigator.setAppBadge(1);
