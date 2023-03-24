@@ -64,6 +64,7 @@
 
       let deferredPrompt = null;
       window.addEventListener('beforeinstallprompt', function(event) {
+        console.log(event);
         event.preventDefault();
         deferredPrompt = event;
       });
