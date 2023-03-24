@@ -397,25 +397,25 @@ function fixedPlace() {
 }
 
 async function installPrompt() {  
-  console.log('install');
+  // console.log('install');
 
-  let deferredPrompt = null;
-  window.addEventListener('beforeinstallprompt', function(event) {
-    event.preventDefault();
-    deferredPrompt = event;
-  });
+  // let deferredPrompt = null;
+  // window.addEventListener('beforeinstallprompt', function(event) {
+  //   event.preventDefault();
+  //   deferredPrompt = event;
+  // });
 
-  if(deferredPrompt){
-    deferredPrompt.prompt();
+  // if(deferredPrompt){
+  //   deferredPrompt.prompt();
 
-    deferredPrompt.userChoice.then(function(choiceResult){
-      if(choiceResult.outcome === "accepted"){
-        console.log('Your PWA has been installed.');
-      } else {
-        console.log('User chose to not install ypur PWA.')
-      }
+  //   deferredPrompt.userChoice.then(function(choiceResult){
+  //     if(choiceResult.outcome === "accepted"){
+  //       console.log('Your PWA has been installed.');
+  //     } else {
+  //       console.log('User chose to not install ypur PWA.')
+  //     }
 
-      deferredPrompt = null;
-    });
-  }
+  //     deferredPrompt = null;
+  //   });
+  // }
 }
