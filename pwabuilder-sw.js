@@ -5,6 +5,8 @@ var CURRENT_CACHES = {
   prefetch: 'prefetch-cache-v' + CACHE_VERSION
 };
 
+workbox.setConfig({ debug: false }); 
+
 // self.addEventListener('install', e => {
 //   console.log('11111111111111111111');
 
@@ -372,6 +374,7 @@ self.addEventListener('beforeinstallprompt', event => {
 });
 
 self.addEventListener('message', event => {
+  console.log(event);
   if (event.data && event.data.type === 'install-pwa') {
     // код установки PWA
     console.log('Message Event');
