@@ -271,6 +271,8 @@ self.addEventListener('install', function(event) {
     }).then(() => {
       console.log('All files were successfully cached.');
       self.skipWaiting();
+
+      self.dispatchEvent(new Event('beforeinstallprompt'));
     })
   );
 
@@ -300,16 +302,16 @@ self.addEventListener('activate', function(event) {
     })
     );
 
-    self.clients.matchAll({type: 'window'}).then(clients => {
-      console.log(clients);
-      clients.forEach(client => {
-        client.postMessage({
-          type: 'prompt-install'
-        });
-      });
-    });
+    // self.clients.matchAll({type: 'window'}).then(clients => {
+    //   console.log(clients);
+    //   clients.forEach(client => {
+    //     client.postMessage({
+    //       type: 'prompt-install'
+    //     });
+    //   });
+    // });
 
-    self.dispatchEvent(new Event('beforeinstallprompt'));
+    
 });
 
 self.addEventListener('fetch', function(event) {
@@ -381,11 +383,11 @@ self.addEventListener('beforeinstallprompt', event => {
   // window.dispatchEvent(installPromptEvent);
 });
 
-self.addEventListener('message', event => {
-  console.log(event);
-  if (event.data && event.data.type === 'install-pwa') {
-    // код установки PWA
-    console.log('Message Event');
+// self.addEventListener('message', event => {
+//   console.log(event);
+//   if (event.data && event.data.type === 'install-pwa') {
+//     // код установки PWA
+//     console.log('Message Event');
     
-  }
-});
+//   }
+// });
