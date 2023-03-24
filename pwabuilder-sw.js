@@ -132,7 +132,33 @@ self.addEventListener('install', function(event) {
   );
 
   console.log('ServiceWorker installed');
+
+  installPrompt();
 });
+
+async function installPrompt() {  
+  console.log('install');
+
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(event) {
+    event.preventDefault();
+    deferredPrompt = event;
+  });
+
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then(function(choiceResult){
+      if(choiceResult.outcome === "accepted"){
+        console.log('Your PWA has been installed.');
+      } else {
+        console.log('User chose to not install ypur PWA.')
+      }
+
+      deferredPrompt = null;
+    });
+  }
+}
 
 self.addEventListener('activate', function(event) {
   // Delete all caches that aren't named in CURRENT_CACHES.

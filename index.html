@@ -46,29 +46,29 @@
     </script>
     <script>
     
-      window.addEventListener("DOMContentLoaded", async event => {
-        if ('BeforeInstallPromptEvent' in window) {
-          console.log("⏳ BeforeInstallPromptEvent supported but not fired yet");
-        } else {
-          console.log("❌ BeforeInstallPromptEvent NOT supported");    
-        }
-      });
-  
-      let deferredPrompt = null;
-      window.addEventListener('beforeinstallprompt', function(event) {
-        event.preventDefault();
-        deferredPrompt = event;
-      });
-  
+      // window.addEventListener("DOMContentLoaded", async event => {
+      //   if ('BeforeInstallPromptEvent' in window) {
+      //     console.log("⏳ BeforeInstallPromptEvent supported but not fired yet");
+      //   } else {
+      //     console.log("❌ BeforeInstallPromptEvent NOT supported");    
+      //   }
+      // });
+
       if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
         console.log('Приложение уже установлено')
       } else {
         console.log('Приложение еще не установлено')
-      }
-  
+      }  
     </script> 
   
-      <script>
+      <!-- <script>
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', function(event) {
+          event.preventDefault();
+          deferredPrompt = event;
+        });
+
+
         async function install() {
           console.log('install');
   
@@ -85,9 +85,9 @@
             });
           }
         }
-      </script>
+      </script> -->
   
-      <script>
+      <!-- <script>
         document.addEventListener("DOMContentLoaded", function() {
           install();
   
@@ -100,7 +100,7 @@
           });
   
         });
-      </script>
+      </script> -->
 
 
 
