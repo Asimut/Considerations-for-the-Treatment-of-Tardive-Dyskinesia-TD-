@@ -376,7 +376,9 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('beforeinstallprompt', event => {
   console.log(event);
-  console.log('PROMPT1111111')
+  console.log('PROMPT1111111');
+  
+  window.dispatchEvent(installPromptEvent);
 });
 
 self.addEventListener('message', event => {
