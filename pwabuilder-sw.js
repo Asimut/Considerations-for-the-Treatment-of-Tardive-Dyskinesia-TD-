@@ -271,6 +271,7 @@ self.addEventListener('install', function(event) {
     }).then(() => {
       console.log('All files were successfully cached.');
       self.clients.matchAll({type: 'window'}).then(clients => {
+        console.log(clients);
         clients.forEach(client => {
           client.postMessage({
             type: 'prompt-install'
