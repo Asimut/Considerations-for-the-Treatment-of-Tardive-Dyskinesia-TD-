@@ -273,7 +273,6 @@ self.addEventListener('install', function(event) {
       self.skipWaiting();
 
       console.log(self);
-
       // self.dispatchEvent(new Event('beforeinstallprompt'));
     })
   );
