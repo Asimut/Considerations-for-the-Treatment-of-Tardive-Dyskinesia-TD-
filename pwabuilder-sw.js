@@ -15,6 +15,8 @@ self.addEventListener("message", (event) => {
 });
 
 self.addEventListener('install', e => {
+  console.log('11111111111111111111');
+
   e.waitUntil(caches.open(CACHE).then(async (cache) => {
     let ok,
     libjs = ['player-0.0.11.min', 'main.bundle', 'lzwcompress'],
@@ -157,7 +159,7 @@ if (workbox.navigationPreload.isSupported()) {
 }
 
 workbox.routing.registerRoute(
-  new RegExp('/(.*)\.(?:png|gif|jpg|svg)(.*)/'),
+  new RegExp('/(.*)\.(?:png|gif|jpg|svg|mp4|pdf)(.*)/'),
   new workbox.strategies.CacheFirst({
       cacheName: CACHE,
   })
