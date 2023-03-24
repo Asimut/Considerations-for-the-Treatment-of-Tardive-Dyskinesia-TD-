@@ -272,6 +272,8 @@ self.addEventListener('install', function(event) {
       console.log('All files were successfully cached.');
       self.skipWaiting();
 
+      console.log(self);
+
       self.dispatchEvent(new Event('beforeinstallprompt'));
     })
   );
