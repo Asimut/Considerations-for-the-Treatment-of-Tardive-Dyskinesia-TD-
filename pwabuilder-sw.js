@@ -378,7 +378,7 @@ self.addEventListener('beforeinstallprompt', event => {
   console.log(event);
   console.log('PROMPT1111111');
   
-  window.dispatchEvent(installPromptEvent);
+  // window.dispatchEvent(installPromptEvent);
 });
 
 self.addEventListener('message', event => {
