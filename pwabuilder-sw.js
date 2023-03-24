@@ -108,11 +108,11 @@ self.addEventListener('install', e => {
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/ingrezza-valbenazine-logo-n.svg',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/logo-modal.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/open-book.svg',
-      // ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4'),
-      // ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
-      // ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
-      // ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
-      // ...assetspdf.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.pdf'),
+      ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4'),
+      ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
+      ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
+      ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
+      ...assetspdf.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.pdf'),
       // '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/pwabuilder-sw.js',
       // '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/manifest.json',
       // '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/152.png',
@@ -282,6 +282,25 @@ self.addEventListener('activate', function(event) {
   });
 
   console.log(expectedCacheNames);
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(event) {
+    event.preventDefault();
+    deferredPrompt = event;
+  });
+
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then(function(choiceResult){
+      if(choiceResult.outcome === "accepted"){
+        console.log('Your PWA has been installed.');
+      } else {
+        console.log('User chose to not install ypur PWA.')
+      }
+
+      deferredPrompt = null;
+    });
+  }
 
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
