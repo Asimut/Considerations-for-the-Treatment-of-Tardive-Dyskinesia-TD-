@@ -245,13 +245,13 @@ self.addEventListener('install', function(event) {
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/ingrezza-valbenazine-logo-n.svg',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/logo-modal.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/open-book.svg',
-      // ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4?v=1'),
-      // ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
-      // ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
-      // ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
-      // ...assetspdf.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.pdf'),
-      // '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/pwabuilder-sw.js',
-      // '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/manifest.json',
+      ...assetsvideo.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.mp4?v=1'),
+      ...assetssvg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.svg'),
+      ...assetspng.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.png'),
+      ...assetsjpg.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.jpg'),
+      ...assetspdf.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/' + i + '.pdf'),
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/pwabuilder-sw.js',
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/manifest.json',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/152.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/144.png',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/64.png',
@@ -272,12 +272,6 @@ self.addEventListener('install', function(event) {
       console.log('All files were successfully cached.');
 
       self.skipWaiting();
-
-      console.log(self);
-
-      // workbox.postMessage({
-      //   type: 'prompt-install'
-      // });
       // self.dispatchEvent(new Event('beforeinstallprompt'));
     })
   );
