@@ -8,19 +8,19 @@ var CURRENT_CACHES = {
 workbox.setConfig({ debug: true });
 
 // Add Range Request support to fetching videos from cache
-workbox.routing.registerRoute(
-  /.*\.mp4/,
-  new workbox.strategies.CacheFirst({
-    cacheName: CURRENT_CACHES,
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200],
-      }),
-      new workbox.rangeRequests.RangeRequestsPlugin(),
-    ],
-  }),
-  'GET'
-);
+// workbox.routing.registerRoute(
+//   /.*\.mp4/,
+//   new workbox.strategies.CacheFirst({
+//     cacheName: CURRENT_CACHES,
+//     plugins: [
+//       new workbox.cacheableResponse.CacheableResponsePlugin({
+//         statuses: [200],
+//       }),
+//       new workbox.rangeRequests.RangeRequestsPlugin(),
+//     ],
+//   }),
+//   'GET'
+// );
 
 // self.addEventListener('install', e => {
 //   console.log('11111111111111111111');
