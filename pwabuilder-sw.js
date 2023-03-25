@@ -271,6 +271,11 @@ self.addEventListener('install', function(event) {
     }).then(() => {
       console.log('All files were successfully cached.');
 
+      caches.open(CURRENT_CACHES).then(cache => {
+        cache.keys()
+        .then(requests => console.log(requests))
+      })
+
       self.skipWaiting();
       // self.dispatchEvent(new Event('beforeinstallprompt'));
     })
@@ -300,18 +305,7 @@ self.addEventListener('activate', function(event) {
         })
         );
     })
-    );
-
-    // self.clients.matchAll({type: 'window'}).then(clients => {
-    //   console.log(clients);
-    //   clients.forEach(client => {
-    //     client.postMessage({
-    //       type: 'prompt-install'
-    //     });
-    //   });
-    // });
-
-    
+    );    
 });
 
 self.addEventListener('fetch', function(event) {
