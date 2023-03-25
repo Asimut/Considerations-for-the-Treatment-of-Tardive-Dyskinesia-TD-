@@ -11,6 +11,7 @@ workbox.setConfig({ debug: true });
 workbox.routing.registerRoute(
   /.*\.mp4/,
   new workbox.strategies.CacheFirst({
+    cacheName: CURRENT_CACHES,
     plugins: [
       new workbox.cacheableResponse.CacheableResponsePlugin({
         statuses: [200],
