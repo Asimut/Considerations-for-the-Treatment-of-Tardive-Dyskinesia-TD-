@@ -270,6 +270,7 @@ self.addEventListener('install', function(event) {
       return cache.addAll(urlsToPrefetch);      
     }).then(() => {
       console.log('All files were successfully cached.');
+      
       self.skipWaiting();
 
       console.log(self);
