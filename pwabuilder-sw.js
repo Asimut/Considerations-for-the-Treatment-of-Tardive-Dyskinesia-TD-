@@ -325,9 +325,64 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log('Handling fetch event for', event.request.url);
+  
+  headersLog = [];
+  for (var pair of event.request.headers.entries()) {
+    console.log(pair[0]+ ': '+ pair[1]);
+    headersLog.push(pair[0]+ ': '+ pair[1])
+ }
+ console.log('Handling fetch event for', event.request.url, JSON.stringify(headersLog));
 
-  console.log('Non-range request for', event.request.url);
+  if (event.request.headers.get('range')) {
+    console.log('Range request for', event.request.url);
+    var rangeHeader=event.request.headers.get('range');
+    var rangeMatch =rangeHeader.match(/^bytes\=(\d+)\-(\d+)?/)
+    var pos =Number(rangeMatch[1]);
+    var pos2=rangeMatch[2];
+    if (pos2) { pos2=Number(pos2); }
+    
+    console.log('Range request for '+ event.request.url,'Range: '+rangeHeader, "Parsed as: "+pos+"-"+pos2);
+    event.respondWith(
+      caches.open(CURRENT_CACHES.prefetch)
+      .then(function(cache) {
+        return cache.match(event.request.url);
+      }).then(function(res) {
+        if (!res) {
+          console.log("Not found in cache - doing fetch")
+          return fetch(event.request)
+          .then(res => {
+            console.log("Fetch done - returning response ",res)
+            return res.arrayBuffer();
+          });
+        }
+        console.log("FOUND in cache - doing fetch")
+        return res.arrayBuffer();
+      }).then(function(ab) {
+        console.log("Response procssing")
+        let responseHeaders=  {
+          status: 206,
+          statusText: 'Partial Content',
+          headers: [
+            ['Content-Type', 'video/mp4'],
+            ['Content-Range', 'bytes ' + pos + '-' + 
+            (pos2||(ab.byteLength - 1)) + '/' + ab.byteLength]]
+        };
+        
+        console.log("Response: ",JSON.stringify(responseHeaders))
+        var abSliced={};
+        if (pos2>0){
+          abSliced=ab.slice(pos,pos2+1);
+        }else{
+          abSliced=ab.slice(pos);
+        }
+        
+        console.log("Response length: ",abSliced.byteLength)
+        return new Response(
+          abSliced,responseHeaders
+        );
+      }));
+  } else {
+    console.log('Non-range request for', event.request.url);
     event.respondWith(
     // caches.match() will look for a cache entry in all of the caches available to the service worker.
     // It's an alternative to first opening a specific named cache and then matching on that.
@@ -353,6 +408,7 @@ self.addEventListener('fetch', function(event) {
       });
     })
     );
+  }
 });
 
 
