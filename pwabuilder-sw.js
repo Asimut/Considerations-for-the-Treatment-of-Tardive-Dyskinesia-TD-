@@ -274,6 +274,10 @@ self.addEventListener('install', function(event) {
       self.skipWaiting();
 
       console.log(self);
+
+      // workbox.postMessage({
+      //   type: 'prompt-install'
+      // });
       // self.dispatchEvent(new Event('beforeinstallprompt'));
     })
   );

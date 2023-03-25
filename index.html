@@ -15,13 +15,23 @@
           navigator.serviceWorker
           .register('pwabuilder-sw.js')
           .then(function(reg){
-            console.log('PWA Builder has been registered')
+            // console.log('PWA Builder has been registered');
+
+            if (!reg.installing) return;
+              console.log("There is a ServiceWorker installing");
+
+              var worker = reg.installing;
+              worker.addEventListener('statechange', function() {
+                if (worker.state == 'redundant') {
+                  console.log('Install failed');
+                }
+                if (worker.state == 'installed') {
+                  console.log('Install successful!');
+                }
+              });
           })
-        } 
+        }      
         
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-            console.log("controller change");
-        });
       }
 
       let deferredPrompt = null;
