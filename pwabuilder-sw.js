@@ -234,6 +234,7 @@ self.addEventListener('install', function(event) {
       ...libjs.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/lib/' + i + '.js'),
       ...libcss.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/lib/' + i + '.css'),
       ...libfonts.map(i => '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/lib/fonts/' + i + '.woff'),
+      '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/lib/fonts/icomoon.ttf',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/jquery-3.6.0.min.js',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/script.js',
       '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/assets/custom/style.css',
