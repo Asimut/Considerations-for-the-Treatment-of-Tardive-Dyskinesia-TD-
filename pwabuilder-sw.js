@@ -5,7 +5,21 @@ var CURRENT_CACHES = {
   prefetch: 'prefetch-cache-v' + CACHE_VERSION
 };
 
-workbox.setConfig({ debug: true }); 
+workbox.setConfig({ debug: true });
+
+// Add Range Request support to fetching videos from cache
+workbox.routing.registerRoute(
+  /.*\.mp4/,
+  new workbox.strategies.CacheFirst({
+    plugins: [
+      new workbox.cacheableResponse.CacheableResponsePlugin({
+        statuses: [200],
+      }),
+      new workbox.rangeRequests.RangeRequestsPlugin(),
+    ],
+  }),
+  'GET'
+);
 
 // self.addEventListener('install', e => {
 //   console.log('11111111111111111111');
