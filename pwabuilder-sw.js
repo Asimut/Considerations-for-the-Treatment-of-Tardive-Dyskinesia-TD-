@@ -271,7 +271,7 @@ self.addEventListener('install', function(event) {
     }).then(() => {
       console.log('All files were successfully cached.');
 
-      caches.open(CURRENT_CACHES).then(cache => {
+      caches.open(CURRENT_CACHES.prefetch).then(cache => {
         cache.keys()
         .then(requests => console.log(requests))
       })
