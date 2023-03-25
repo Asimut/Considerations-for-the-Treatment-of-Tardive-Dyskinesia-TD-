@@ -2,13 +2,9 @@
 
   $('#app').on('DOMNodeInserted', function(e) {  
 
-    if (typeof window !== 'undefined') {
-      console.log('You are on the browser,You are good to go')
-      installPrompt();
-      } else {
-      console.log('You are on the server,Cannot execute')
-     }
-    
+    $(this).find('video').each(function(){
+      $(this).attr('crossOrigin', 'anonymous');
+    });
     
     fixedPlace(); 
     
@@ -394,28 +390,4 @@ function fixedPlace() {
       }
     }
   }
-}
-
-async function installPrompt() {  
-  // console.log('install');
-
-  // let deferredPrompt = null;
-  // window.addEventListener('beforeinstallprompt', function(event) {
-  //   event.preventDefault();
-  //   deferredPrompt = event;
-  // });
-
-  // if(deferredPrompt){
-  //   deferredPrompt.prompt();
-
-  //   deferredPrompt.userChoice.then(function(choiceResult){
-  //     if(choiceResult.outcome === "accepted"){
-  //       console.log('Your PWA has been installed.');
-  //     } else {
-  //       console.log('User chose to not install ypur PWA.')
-  //     }
-
-  //     deferredPrompt = null;
-  //   });
-  // }
 }
