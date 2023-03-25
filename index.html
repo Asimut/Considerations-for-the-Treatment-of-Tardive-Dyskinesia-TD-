@@ -17,7 +17,11 @@
           .then(function(reg){
             console.log('PWA Builder has been registered')
           })
-        }
+        } 
+        
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            console.log("controller change");
+        });
       }
 
       let deferredPrompt = null;
@@ -46,7 +50,9 @@
 
       // if ('setAppBadge' in navigator) {
       //   navigator.setAppBadge(1);
-      // }      
+      // }  
+      
+      
     </script>
 
 

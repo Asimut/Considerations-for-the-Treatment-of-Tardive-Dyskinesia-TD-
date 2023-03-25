@@ -5,7 +5,7 @@ var CURRENT_CACHES = {
   prefetch: 'prefetch-cache-v' + CACHE_VERSION
 };
 
-workbox.setConfig({ debug: false }); 
+workbox.setConfig({ debug: true }); 
 
 // self.addEventListener('install', e => {
 //   console.log('11111111111111111111');
@@ -270,7 +270,7 @@ self.addEventListener('install', function(event) {
       return cache.addAll(urlsToPrefetch);      
     }).then(() => {
       console.log('All files were successfully cached.');
-      
+
       self.skipWaiting();
 
       console.log(self);
