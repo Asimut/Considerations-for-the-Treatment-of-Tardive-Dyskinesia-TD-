@@ -26,6 +26,10 @@
 
               var worker = reg.installing;
               worker.addEventListener('statechange', function() {
+                if(!navigator.serviceWorker.controller){
+                    console.info("controller is still none for some reason.");
+                    return;
+                }
                 if (worker.state == 'redundant') {
                   console.log('Install failed');
                 }
@@ -38,7 +42,10 @@
                   alert('App is ready to download!');
                 }
               });
-          })
+          }).catch(function (err) {
+              console.error("Something is not right, worker wasn't registered");
+              console.log(err);
+          });
         }      
         
       }
@@ -63,9 +70,7 @@
           });
         }
       });
-
-      
-
+    
 
       // if ('setAppBadge' in navigator) {
       //   navigator.setAppBadge(1);
