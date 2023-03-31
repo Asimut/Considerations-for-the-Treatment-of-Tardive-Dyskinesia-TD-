@@ -1,6 +1,6 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'); 
 
-var CACHE_VERSION = 2;
+var CACHE_VERSION = 3;
 var CURRENT_CACHES = {
   prefetch: 'prefetch-cache-v' + CACHE_VERSION
 };
@@ -296,8 +296,6 @@ self.addEventListener('install', function(event) {
       // self.dispatchEvent(new Event('beforeinstallprompt'));
     })
   );
-
-  console.log('ServiceWorker installed');
 
 });
 
