@@ -9,6 +9,7 @@
 
     <script>
       if('serviceWorker' in navigator){
+        console.log(navigator);
         if(navigator.serviceWorker.controller){
           console.log("PWA Builder service worker found, no need to register.");
 
