@@ -57,7 +57,9 @@
           });
 
           navigator.serviceWorker.getRegistrations().then(registrations => {
-            console.log(registrations.ServiceWorkerRegistration)
+            var answer = registrations;
+            console.log(answer);
+            console.log(registrations[0]);
             // if(registrations.ServiceWorkerRegistration.active){
             // }
               console.log(registrations);
