@@ -57,12 +57,20 @@
           });
 
           navigator.serviceWorker.getRegistrations().then(registrations => {
-            var answer = registrations;
-            console.log(answer);
             console.log(registrations[0]);
+            if(registrations[0].installing){
+              console.log('Still Installing!')
+            }
+            if(registrations[0].active){
+              console.log('Installed!');
+
+              var Loader = document.getElementById("loader");
+                  Loader.style.display = 'none';
+
+                  alert('App is ready to download!');
+            }
             // if(registrations.ServiceWorkerRegistration.active){
             // }
-              console.log(registrations);
           });
 
           
