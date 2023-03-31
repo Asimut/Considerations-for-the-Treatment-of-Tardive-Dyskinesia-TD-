@@ -8,6 +8,56 @@
     <link rel="manifest" href="manifest.json">
 
     <script>
+      if ('serviceWorker' in navigator) {
+        // Delay registration until after the page has loaded, to ensure that our
+        // precaching requests don't degrade the first visit experience.
+        // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
+        window.addEventListener('load', function() {
+          // Your service-worker.js *must* be located at the top-level directory relative to your site.
+          // It won't be able to control pages unless it's located at the same level or higher than them.
+          // *Don't* register service worker file in, e.g., a scripts/ sub-directory!
+          // See https://github.com/slightlyoff/ServiceWorker/issues/468
+          navigator.serviceWorker.register('pwabuilder-sw.js').then(function(reg) {
+            // updatefound is fired if service-worker.js changes.
+            reg.onupdatefound = function() {
+              // The updatefound event implies that reg.installing is set; see
+              // https://w3c.github.io/ServiceWorker/#service-worker-registration-updatefound-event
+              var installingWorker = reg.installing;
+
+              installingWorker.onstatechange = function() {
+                switch (installingWorker.state) {
+                  case 'installed':
+                    if (navigator.serviceWorker.controller) {
+                      // At this point, the old content will have been purged and the fresh content will
+                      // have been added to the cache.
+                      // It's the perfect time to display a "New content is available; please refresh."
+                      // message in the page's interface.
+                      console.log('New or updated content is available.');
+                    } else {
+                      // At this point, everything has been precached.
+                      // It's the perfect time to display a "Content is cached for offline use." message.
+                      console.log('Content is now available offline!');
+                    }
+                    var elLoader = document.getElementById("#loader");
+                    elLoader.style.display = 'none';
+
+                    alert('App is ready to download!');
+                    break;
+
+                  case 'redundant':
+                    console.error('The installing service worker became redundant.');
+                    break;
+                }
+              };
+            };
+          }).catch(function(e) {
+            console.error('Error during service worker registration:', e);
+          });
+        });
+      }
+    </script>
+
+    <!-- <script>
       if('serviceWorker' in navigator){
         console.log(navigator);
         if(navigator.serviceWorker.controller){
@@ -77,7 +127,7 @@
       // }  
       
       
-    </script>
+    </script> -->
 
 
 
@@ -182,6 +232,8 @@
 
   </head>
   <body>
+    <div class="loader" id="loader"><div class="wrapper"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="eTRjWHx8psJ1" viewBox="0 0 600 600" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" width="600" height="600"><style><![CDATA[#eTRjWHx8psJ3_tr {animation: eTRjWHx8psJ3_tr__tr 3000ms linear infinite normal forwards}@keyframes eTRjWHx8psJ3_tr__tr { 0% {transform: translate(300px,300px) rotate(90deg)} 100% {transform: translate(300px,300px) rotate(810deg)}} #eTRjWHx8psJ4_tr {animation: eTRjWHx8psJ4_tr__tr 3000ms linear infinite normal forwards}@keyframes eTRjWHx8psJ4_tr__tr { 0% {transform: translate(300px,300px) rotate(90deg)} 100% {transform: translate(300px,300px) rotate(810deg)}} #eTRjWHx8psJ4 {animation: eTRjWHx8psJ4_s_do 3000ms linear infinite normal forwards}@keyframes eTRjWHx8psJ4_s_do { 0% {stroke-dashoffset: 1602.210000} 100% {stroke-dashoffset: 4806.630000}}]]></style><g id="eTRjWHx8psJ2"><g id="eTRjWHx8psJ3_tr" transform="translate(300,300) rotate(90)"><ellipse id="eTRjWHx8psJ3" rx="255" ry="255" transform="scale(-1,1) translate(0,0)" fill="none" stroke="#ff6b00" stroke-width="75" stroke-opacity="0.2" stroke-linecap="round"/></g><g id="eTRjWHx8psJ4_tr" transform="translate(300,300) rotate(90)"><ellipse id="eTRjWHx8psJ4" rx="255" ry="255" transform="scale(-1,1) translate(0,0)" fill="none" stroke="#d50054" stroke-width="75" stroke-linecap="round" stroke-dashoffset="1602.210000" stroke-dasharray="1602.210000"/></g></g></svg><div class="title">Loading...</div></div></div>
+    
     <style>
       .brand--head, .brand--head *   { font-family: 'Lato' !important; }
       .brand--body, .brand--body *   { font-family: 'Lato' !important; }
