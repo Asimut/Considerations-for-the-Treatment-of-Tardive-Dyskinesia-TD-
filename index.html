@@ -37,6 +37,8 @@
                       // At this point, everything has been precached.
                       // It's the perfect time to display a "Content is cached for offline use." message.
                       console.log('Content is now available offline!');
+                      
+                      console.log(navigator.serviceWorker);
                     }
                     var elLoader = document.getElementById("#loader");
                     elLoader.style.display = 'none';
@@ -54,7 +56,7 @@
             console.error('Error during service worker registration:', e);
           });
 
-          console.log(navigator.serviceWorker);
+          
         });
       }
     </script>
