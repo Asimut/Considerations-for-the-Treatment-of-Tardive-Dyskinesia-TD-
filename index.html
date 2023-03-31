@@ -40,7 +40,7 @@
 
                       console.log(navigator.serviceWorker);
                     }
-                    var elLoader = document.getElementById("#loader");
+                    var elLoader = document.getElementById("loader");
                     elLoader.style.display = 'none';
 
                     alert('App is ready to download!');
@@ -57,9 +57,9 @@
           });
 
           navigator.serviceWorker.getRegistrations().then(registrations => {
-            console.log(registrations.ServiceWorkerRegistration.active)
-            if(registrations.ServiceWorkerRegistration.active){
-            }
+            console.log(registrations.ServiceWorkerRegistration)
+            // if(registrations.ServiceWorkerRegistration.active){
+            // }
               console.log(registrations);
           });
 
