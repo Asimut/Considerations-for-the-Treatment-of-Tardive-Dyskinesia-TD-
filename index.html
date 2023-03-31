@@ -57,8 +57,8 @@
           });
 
           navigator.serviceWorker.getRegistrations().then(registrations => {
-            console.log(ServiceWorkerRegistration.active)
-            if(ServiceWorkerRegistration.active){
+            console.log(registrations.ServiceWorkerRegistration.active)
+            if(registrations.ServiceWorkerRegistration.active){
             }
               console.log(registrations);
           });
