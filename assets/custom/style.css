@@ -4,6 +4,26 @@
 
  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,300&display=swap');
 
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(255 255 255 / 80%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.loader .title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+
  .nav-sidebar-header__graphic,
  .classic .cover__header-content {
      background: transparent -webkit-gradient(linear,left top, right top,from(#d50054),to(#ff6b00)) 0 0 no-repeat;
