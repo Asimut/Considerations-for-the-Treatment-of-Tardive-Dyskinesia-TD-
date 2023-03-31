@@ -56,22 +56,27 @@
             console.error('Error during service worker registration:', e);
           });
 
-          navigator.serviceWorker.getRegistrations().then(registrations => {
-            console.log(registrations[0]);
-            if(registrations[0].installing){
-              console.log('Still Installing!')
-            }
-            if(registrations[0].active){
-              console.log('Installed!');
+          function checkRegistration() {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+              console.log(registrations[0]);
+              if(registrations[0].installing){
+                console.log('Still Installing!')
 
-              var Loader = document.getElementById("loader");
-                  Loader.style.display = 'none';
+                setTimeout(checkRegistration, 500);
+              }
+              if(registrations[0].active){
+                console.log('Installed!');
 
-                  alert('App is ready to download!');
-            }
-            // if(registrations.ServiceWorkerRegistration.active){
-            // }
-          });
+                var Loader = document.getElementById("loader");
+                    Loader.style.display = 'none';
+
+                    alert('App is ready to download!');
+              }
+            });
+          }
+
+          checkRegistration();
+          
 
           
         });
