@@ -13,7 +13,7 @@
         if(navigator.serviceWorker.controller){
           console.log("PWA Builder service worker found, no need to register.");
 
-          var el = document.getElementById("body #body .loader");
+          var el = document.getElementById("body #loader");
           el.style.display = 'none';
         } else {
           navigator.serviceWorker
@@ -32,7 +32,7 @@
                 if (worker.state == 'installed') {
                   console.log('Install successful!');
 
-                  var el = document.getElementById("body #body .loader");
+                  var el = document.getElementById("body #loader");
                   el.style.display = 'none';
 
                   alert('App is ready to download!');
