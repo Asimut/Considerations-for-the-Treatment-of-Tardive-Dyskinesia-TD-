@@ -39,12 +39,18 @@
                       console.log('Content is now available offline!');
 
                       console.log(navigator.serviceWorker);
-                      
-                      alert('App is ready to download!');
                     }
+                    
                     var elLoader = document.getElementById("loader");
                     elLoader.style.display = 'none';
-                    
+
+                    if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+                      console.log('Приложение уже установлено')
+                    } else {
+                      console.log('Приложение еще не установлено');
+                      alert('App is ready to download!');
+                    }  
+
                     break;
 
                   case 'redundant':
@@ -71,7 +77,13 @@
                 var Loader = document.getElementById("loader");
                     Loader.style.display = 'none';
 
-                    // alert('App is ready to download!');
+                if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+                  console.log('Приложение уже установлено')
+                } else {
+                  console.log('Приложение еще не установлено');
+                  alert('App is ready to download!');
+                }  
+
               }
             });
           }
@@ -205,11 +217,7 @@
       //   }
       // });
 
-      if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
-        console.log('Приложение уже установлено')
-      } else {
-        console.log('Приложение еще не установлено')
-      }  
+      
     </script> 
   
       <!-- <script>
