@@ -39,11 +39,12 @@
                       console.log('Content is now available offline!');
 
                       console.log(navigator.serviceWorker);
+                      
+                      alert('App is ready to download!');
                     }
                     var elLoader = document.getElementById("loader");
                     elLoader.style.display = 'none';
-
-                    alert('App is ready to download!');
+                    
                     break;
 
                   case 'redundant':
@@ -76,8 +77,6 @@
           }
 
           checkRegistration();
-          
-
           
         });
       }
