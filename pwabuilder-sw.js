@@ -7,6 +7,8 @@ var CURRENT_CACHES = {
 
 workbox.setConfig({ debug: true });
 
+console.log(window.location);
+
 // Add Range Request support to fetching videos from cache
 // workbox.routing.registerRoute(
 //   /.*\.mp4/,
