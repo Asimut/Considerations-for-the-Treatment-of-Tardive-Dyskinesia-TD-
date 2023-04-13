@@ -6,8 +6,8 @@ var CURRENT_CACHES = {
 };
 
 //Page Link Example:
-//https://asimut.github.io/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/
-var pageLink = '/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/';
+//https://asimut.github.io/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/index.html
+var pageLink = 'https://asimut.github.io/Considerations-for-the-Treatment-of-Tardive-Dyskinesia-TD-/';
 
 workbox.setConfig({ debug: true });
 
